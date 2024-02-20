@@ -1,0 +1,51 @@
+﻿@model IEnumerable<WebApplication_Online_Shopping.Models.Category>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Admin</h1>
+<style>
+    h1 {
+        color: rgb(156, 29, 18);
+        text-align: center;
+      /*   font-family: 'Architects Daughter', cursive; */
+    }
+
+</style>
+
+<p>
+    <a asp-action="Create" class="btn btn-success">New Category</a>
+</p>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.CategoryId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CategoryName)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.CategoryId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CategoryName)
+            </td>
+            <td>
+                    @Html.ActionLink("Edit", "Edit", new {  id=item.CategoryId },new{@class="btn btn-success"}) |
+                    @Html.ActionLink("Details", "Details", new {  id=item.CategoryId },new{@class="btn btn-warning"}) |
+                    @Html.ActionLink("Delete", "Delete", new { id=item.CategoryId },new{@class="btn btn-danger",onclick = "return confirm('Are You Sure?')"})
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

@@ -1,0 +1,139 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        .button{
+            display: flex;
+            flex-flow: row wrap;
+            position: relative;
+            text-align: center;
+          
+          
+        }
+        lable{
+            margin:8px;
+            
+        }
+        .slider {
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+           
+        }
+
+            .slider img {
+                height: 8cm;
+                display: none;
+                align-self: center;
+                /* Align vertically in the middle */
+            }
+
+        .slider {
+            overflow: hidden;
+        }
+
+            .slider img {
+                width: 200%;
+                display: none;
+            }
+
+        .flex-container {
+            display: flex;
+            flex-flow: row wrap;
+            position: relative;
+        }
+
+            .flex-container > div {
+                margin: 18px;
+                text-align: center;
+                line-height: 77px;
+                font-size: 30px;
+            }
+
+        p {
+            margin-top: -23px;
+            margin-bottom: -3rem;
+            font-size: 17px;
+        }
+
+        .products {
+            margin: 2px;
+            flex: 0 calc(41% - 248px);
+            cursor:pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="slider">
+        <img src="~/UI_Images/women-fashion-banner.jpg" />
+        <img src="~/UI_Images/paper-art-shopping-online-on-smartphone-and-new-buy-sale-promotion-backgroud-for-banner-market-ecommerce-free-vector.jpg" />
+        <img src="~/UI_Images/Nivea_Skin._SY700_QL85_.jpg"/>
+       @*  <img src="/UI_Images/Ecommerce-Banner-1.jpg"> *@
+       @*  <img src="~/UI_Images/tablet-laptop-on-sea-rocks-website-header.jpg"/> *@
+  </div>
+
+
+    <div class="flex-container">
+        @foreach (var item in Model)
+        {
+            <div class="products">
+                <div class=" container">
+                    <a href="@Url.Action("Details", "User",new{id=item.ProductId})">
+                <img src="~/Images/@item.ProductPic" height="200" width="220" /></a>
+                </div>
+                <p>@item.ProductName</p>
+                <p>Price - @item.ProductPrice </p>
+                <div class="button">
+                <lable> @Html.ActionLink("Add To Cart", "AddCart", new { id=item.ProductId },new{@class="btn btn-dark"})<label/>
+                <lable>@Html.ActionLink("Buy Now","Buy", new { id=item.ProductId },new{@class="btn btn-danger"})</lable>
+                </div>
+            </div>
+              
+
+        }
+    </div>
+
+
+</body>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        let currentIndex = 0;
+        const images = document.querySelectorAll('.slider img');
+
+        function showImage(index) {
+            // Hide all images
+            images.forEach(image => image.style.display = 'none');
+            // Display the image at the given index
+            images[index].style.display = 'block';
+        }
+
+        function nextImage() {
+            currentIndex = (currentIndex + 1) % images.length;
+            showImage(currentIndex);
+        }
+
+        function previousImage() {
+            currentIndex = (currentIndex - 1 + images.length) % images.length;
+            showImage(currentIndex);
+        }
+
+        // Show the first image initially
+        showImage(currentIndex);
+
+        // Set interval for auto-sliding
+        setInterval(nextImage, 3000); // Change 3000 to desired interval in milliseconds
+    });
+</script>
+
+</html>
+@* @Html.ActionLink("Details", "Details", new {  id=item.ProductId },new{@class="btn btn-warning"})
+@Html.ActionLink("Buy","Buy", new { id=item.ProductId },new{@class="btn btn-danger"})
+@Html.ActionLink("Add To Cart", "AddCart", new { id=item.ProductId },new{@class="btn btn-success"})
+ *@

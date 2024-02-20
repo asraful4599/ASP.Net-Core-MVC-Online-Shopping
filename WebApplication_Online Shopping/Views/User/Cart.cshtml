@@ -1,0 +1,72 @@
+﻿@model IEnumerable<WebApplication_Online_Shopping.Models.Product>
+
+@{
+    ViewData["Title"] = "Cart";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Cart</h1>
+
+@* <p>
+    <a asp-action="Create">Create New</a>
+</p> *@
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+@*                 @Html.DisplayNameFor(model => model.ProductId) *@
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ProductName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ProductDescription)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ProductPrice)
+            </th>
+            <th>
+                @* @Html.DisplayNameFor(model => model.CategoryId) *@
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ProductPic)
+            </th>
+            <th>
+               @*  @Html.DisplayNameFor(model => model.CategoryName) *@
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+               @*  @Html.DisplayFor(modelItem => item.ProductId) *@
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ProductName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ProductDescription)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ProductPrice)
+            </td>
+            <td>
+               @*  @Html.DisplayFor(modelItem => item.CategoryId) *@
+            </td>
+            <td>
+                <img src="~/Images/@item.ProductPic" height="100" width="100" />
+            </td>
+            <td>
+                @* @Html.DisplayFor(modelItem => item.CategoryName) *@
+            </td>
+            <td>
+                    @Html.ActionLink("Delete From Cart", "Delete_cart", new {  id=item.ProductId },new{@class="btn btn-outline-success"})
+                    @Html.ActionLink("Buy Now", "Buy", new {  id=item.ProductId },new{@class="btn btn-danger"})
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+@Html.ActionLink("Buy Now", "Buy", null,new{@class="btn btn-danger"})
